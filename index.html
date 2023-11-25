@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        /* Style the login form*/
+        .login-form {
+            width: 300px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Style the input fields */
+        .login-form input[type=text],
+        .login-form input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        /* Style the submit button */
+        .login-form input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        /* Style the logout button */
+        .main-content {
+            width: 300px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .main-content input[type=button] {
+            background-color: #f44336;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <!-- Login form -->
+        <form class="login-form" id="login-form" onsubmit="return login()">
+            <h1>Login</h1>
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="username" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" id="password" required>
+
+            <input type="submit" value="Login">
+        </form>
+
+        <!-- Logout button -->
+        <div class="main-content" id="main-content" style="display:none;">
+            <input type="button" value="Logout" onclick="logout()">
+
+            <h1>Guess The Number</h1>
+            <p>
+                We have selected a random number between 1 - 10. See if you can guess it.
+            </p>
+            <div class="form">
+                <label for="guessField">Enter a guess:</label>
+                <input type="text" id="guessField" class="guessField">
+                <input type="submit" value="Submit guess" class="guessSubmit" id="submitguess">
+            </div>
+
+            <p></p>
+            <br />
+
+            <img id="dance" src="./images/pause.png">
+
+            <p></p>
+            <br />
+
+            <a href="home.html">prev &lt;&lt;</a>
+
+        </div>
+    </div>
+
+    <script>
+        // Generate a Random Number
+        let y = Math.floor(Math.random() * 10 + 1);
+        // Counting the number of guesses made for correct Guess
+        let guess = 1;
+
+        console.log('Actual: ' + y);
+
+        document.getElementById("submitguess").onclick = function () {
+            // Number guessed by the user
+            let x = document.getElementById("guessField").value;
+
+            console.log('Guess: ' + x);
+
+            if (x == y) {
+                dance();
+                alert("CONGRATULATIONS !!! YOU GUESSED IT RIGHT IN " + guess + " GUESS ");
+            } else if (x > y) {
+                guess++;
+                alert("OOPS SORRY!! TRY A SMALLER NUMBER");
+            } else {
+                guess++;
+                alert("OOPS SORRY !! TRY A GREATER NUMBER");
+            }
+        }
+
+        // Function to check the username and password and show the logout button
+        function login() {
+            // Get the username and password from the input fields
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Check if the username and password are correct
+            if (username == "abc123" && password == "abc123") {
+                // Hide the login form
+                document.getElementById("login-form").style.display = "none";
+                // Show the logout button
+                document.getElementById("main-content").style.display = "block";
+                // Return false to prevent the form from submitting
+                return false;
+            } else {
+                // Alert the user that the username or password is wrong
+                alert("Wrong username or password");
+                // Return false to prevent the form from submitting
+                return false;
+            }
+
+        }
+
+        // Function to hide the logout button and show the login form
+        function logout() {
+            // Hide the logout button
+            document.getElementById("main-content").style.display = "none";
+            // Show the login form
+            document.getElementById("login-form").style.display = "block";
+        }
+
+        // Function for the dance image
+        function dance() {
+            var image = document.getElementById('dance');
+            image.src = "./images/dance.gif";
+        }
+
+    </script>
+</body>
+
+</html>
